@@ -1,8 +1,13 @@
+import logging
+
 import torch
 import torch.nn as nn
 import torchvision
 import torchvision.transforms as transforms
 import yaml
+
+# Set logging level to info
+logging.basicConfig(level=logging.INFO)
 
 # Load the config file
 with open("config.yaml", "r") as f:
@@ -60,6 +65,7 @@ optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
 
 # Start the training
 total_steps = len(train_loader)
+logging.info("Training started!")
 for epoch in range(num_epochs):
     for i, (images, labels) in enumerate(train_loader):
         optimizer.zero_grad()
@@ -77,8 +83,13 @@ for epoch in range(num_epochs):
         optimizer.step()
 
         if (i + 1) % 100 == 0:
-            print(
-                f"Epoch [{epoch+1}/{num_epochs}], Step[{i+1}/{total_steps}], Loss: {loss.item():.4f}"
+            logging.info(
+                "Epoch [%s/%s], Step[%s/%s], Loss: %s",
+                epoch + 1,
+                num_epochs,
+                i + 1,
+                total_steps,
+                loss.item(),
             )
 
 # Test the model
@@ -94,4 +105,18 @@ with torch.no_grad():
         n_correct += (predicted == labels).sum().item()
 
     acc = 100.0 * n_correct / n_samples
-    print(f"Accuracy of the model on the test set: {acc} %")
+    logging.info("Accuracy of the model on the test set: {0} % ".format(acc))
+
+
+# Exporting the model to onnx
+dummy_input = torch.randn(1, 28 * 28).to(device)
+input_name = ["input"]
+output_name = ["output"]
+torch.onnx.export(
+    model.to(device),
+    dummy_input,
+    "mnist_classifier.onnx",
+    input_names=input_name,
+    output_names=output_name,
+)
+logging.info("Model saved")
