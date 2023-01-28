@@ -1,17 +1,18 @@
 import logging
+from pathlib import Path
 
 import torch
 import torch.nn as nn
 import torchvision
 import torchvision.transforms as transforms
-import yaml
+
+from utils import load_yaml_config
 
 # Set logging level to info
 logging.basicConfig(level=logging.INFO)
 
 # Load the config file
-with open("config.yaml", "r") as f:
-    config = yaml.load(f, yaml.Loader)
+config = load_yaml_config(Path("training.yaml"))
 
 input_size = config["input_size"]
 hidden_layer_size = config["hidden_layer_size"]
