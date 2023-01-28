@@ -11,7 +11,7 @@ import utils
 logging.basicConfig(level=logging.INFO)
 
 # Load config
-config = utils.load_yaml_config(Path("inference.yaml"))
+config = utils.load_yaml_config(Path("../configs/inference.yaml"))
 onnx_model_path = config["onnx_model_path"]
 image_path = config["image_path"]
 

@@ -12,7 +12,7 @@ from utils import load_yaml_config
 logging.basicConfig(level=logging.INFO)
 
 # Load the config file
-config = load_yaml_config(Path("training.yaml"))
+config = load_yaml_config(Path("../configs/training.yaml"))
 
 input_size = config["input_size"]
 hidden_layer_size = config["hidden_layer_size"]
@@ -23,10 +23,10 @@ learning_rate = config["learning_rate"]
 
 # Get the MNIST dataset from torchvision
 train_dataset = torchvision.datasets.MNIST(
-    root="data", train=True, transform=transforms.ToTensor(), download=True
+    root="../data/raw", train=True, transform=transforms.ToTensor(), download=True
 )
 test_dataset = torchvision.datasets.MNIST(
-    root="data", train=False, transform=transforms.ToTensor()
+    root="../data/raw", train=False, transform=transforms.ToTensor()
 )
 
 # Get the data loader from the above dataset
@@ -116,7 +116,7 @@ output_name = ["output"]
 torch.onnx.export(
     model.to(device),
     dummy_input,
-    "mnist_classifier.onnx",
+    "../models/mnist_classifier.onnx",
     input_names=input_name,
     output_names=output_name,
 )

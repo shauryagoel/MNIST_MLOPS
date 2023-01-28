@@ -19,7 +19,6 @@ def load_onnx_model(onnx_model_file_path: Path):
     ort_session = onnxruntime.InferenceSession(
         str(onnx_model_file_path), providers=["CPUExecutionProvider"]
     )
-    print(type(ort_session))
     return ort_session
 
 
