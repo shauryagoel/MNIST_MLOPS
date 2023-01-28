@@ -1,0 +1,9 @@
+---
+# Training parameters to vary
+
+input_size: 784   # 28*28
+hidden_layer_size: 500   # 28*28
+num_classes: 10
+num_epochs: 2
+batch_size: 100
+learning_rate: 0.0001
