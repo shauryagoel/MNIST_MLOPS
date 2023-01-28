@@ -1,0 +1,3 @@
+---
+# Parameters used during serving of the model
+onnx_model_path: "../models/mnist_classifier.onnx"

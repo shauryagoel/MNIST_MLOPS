@@ -1,6 +1,4 @@
 ---
 # Parameters to use in inference script
-
 onnx_model_path: "../models/mnist_classifier.onnx"
 image_path: "../data/test/sample_digit_7.png"
-
