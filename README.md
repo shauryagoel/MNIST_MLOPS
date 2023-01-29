@@ -53,3 +53,7 @@ curl -i -X POST -F "image=@data/test/sample_digit_7.png" -H 'Content-Type: multi
 Received response- 
 
 ![Response received for curl request](screenshots/curl_request_response.png)
+
+Data flow-
+
+![Data flow of docker deployment](screenshots/MNIST_classifier_data_flow.png)
