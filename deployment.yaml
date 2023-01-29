@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: MNIST-classifier-deployment
+  labels:
+    app: mnist-classifier
+spec:
+  selector:
+    matchLabels:
+      app: mnist-classifier
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mnist-classifier
+    spec:
+      containers:
+        - name: mnist-fastapi-server
+          image: mnist_classifier:v1
+          ports:
+            - containerPort: 6734
